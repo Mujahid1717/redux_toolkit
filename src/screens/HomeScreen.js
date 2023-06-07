@@ -1,11 +1,13 @@
-import { StyleSheet, Text, View, TouchableOpacity,ScrollView } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity,TextInput} from 'react-native';
 import React from 'react';
 import { useSelector,useDispatch } from 'react-redux';
-import { increment,decrement } from '../../src/reducers/counterReducer';
+import { increment,decrement,changeValue } from '../../src/reducers/counterReducer';
 
 const HomeScreen = () => {
   const dispatch = useDispatch()
   const counter = useSelector((state)=>state.counter.number)
+  const change = useSelector((state)=>state.counter.changeValue)
+  
   return (
     <View style={styles.main}>  
       <Text style={styles.numberStyle}>{counter}</Text>
@@ -15,10 +17,15 @@ const HomeScreen = () => {
         </TouchableOpacity>
         <TouchableOpacity style = {styles.ButtonStyle} onPress={()=>dispatch(decrement())}>
           <Text style={styles.btnText}>Decrease</Text>
-        </TouchableOpacity>
-      </View>   
+        </TouchableOpacity> 
       </View>
-    
+      <TextInput placeholder='Enter Number'
+          style = {styles.inputField}
+          value = {change}
+          onChangeText={text=> dispatch(changeValue(text))}
+
+        />    
+      </View>
   );
 };
 
@@ -53,5 +60,15 @@ const styles = StyleSheet.create({
           borderRadius:20,
           alignItems:"center",
         },
+        inputField: {
+          borderWidth:1,
+          borderColor: 'skyblue',
+          padding:20,
+          marginTop:20,
+          borderRadius:20,
+          fontSize:18, 
+          width:150,
+          marginBottom:40
+      },
 });
 export default HomeScreen;
