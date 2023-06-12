@@ -34,8 +34,9 @@ export const apiReducer = createSlice({
             state.loader = false;
             state.data = action.payload
         },
-        apiFailure :(state) => {
-            state.loader = false
+        apiFailure :(state,action) => {
+            state.loader = false;
+            state.err = action.payload
         },
     }
 })
