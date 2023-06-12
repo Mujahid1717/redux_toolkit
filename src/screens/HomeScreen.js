@@ -3,6 +3,8 @@ import React from 'react';
 import { useSelector,useDispatch } from 'react-redux';
 import { increment,decrement,changeValue,changeTheme } from '../../src/reducers/counterReducer';
 import {colors} from '../config/colors';
+import { apiCall } from '../../src/reducers/apiReducer';
+
 
 const HomeScreen = () => {
   const dispatch = useDispatch()
@@ -38,7 +40,10 @@ const HomeScreen = () => {
           style = {_styles.inputField}
           value = {change}
           onChangeText={text=> dispatch(changeValue(text))}
-        />    
+        /> 
+        <TouchableOpacity style = {_styles.btnTheme} onPress={()=>dispatch(apiCall())}>
+          <Text style={_styles.btnText}>Call Api</Text>
+       </TouchableOpacity>   
       </View>
   );
 };
